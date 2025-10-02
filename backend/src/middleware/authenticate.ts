@@ -24,6 +24,7 @@ const authenticate: RequestHandler = (req, res, next) => {
   );
 
   req.userId = new mongoose.Types.ObjectId(payload.userId as string);
+  req.role = payload.role;
   req.sessionId = new mongoose.Types.ObjectId(payload.sessionId as string);
 
   next();

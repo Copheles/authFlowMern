@@ -10,6 +10,7 @@ export type RefreshTokenPayload = {
 export type AccessTokenPayload = {
   userId: UserDocument["_id"];
   sessionId: SessionDocument["_id"];
+  role: "admin" | "author" | "user";
 };
 
 type SignOptionsAndSecret = SignOptions & {

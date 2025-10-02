@@ -1,4 +1,4 @@
-import { z } from "zod";
+
 import catchErrors from "../utils/catchErrors";
 import {
   createAccount,

@@ -4,13 +4,14 @@ import { compareValue, hashValue } from "../utils/bcrypt";
 export interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
+  role: "admin" | "author" | "user";
   verified: boolean;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(val: string): Promise<boolean>;
   omitPassword(): Pick<
     UserDocument,
-    "_id" | "email" | "verified" | "createdAt" | "updatedAt" 
+    "_id" | "email" | "verified" | "createdAt" | "updatedAt"
   >;
 }
 
@@ -25,10 +26,16 @@ const userSchema = new mongoose.Schema<UserDocument>(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["admin", "author", "user"],
+      default: "user",
+      required: true,
+    },
     verified: {
       type: Boolean,
-      required: true,
       default: false,
+      required: true,
     },
   },
   {

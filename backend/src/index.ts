@@ -9,6 +9,7 @@ import { OK } from "./constants/http";
 import authRoutes from "./routes/auth.route";
 import userRoutes from "./routes/user.route";
 import authenticate from "./middleware/authenticate";
+import sessionRoutes from "./routes/session.route";
 
 const app = express();
 
@@ -24,17 +25,18 @@ app.use(
 
 app.use(cookieParser());
 
-app.get("/health", (req, res) : any => {
+app.get("/health", (req, res): any => {
   return res.status(OK).json({
     status: "good health",
   });
 });
 
 // auth routes
-app.use("/auth", authRoutes)
+app.use("/auth", authRoutes);
 
 // protected routes
-app.use('/user', authenticate, userRoutes)
+app.use("/user", authenticate, userRoutes);
+app.use("/sessions", authenticate, sessionRoutes);
 
 app.use(errorHandler);
 

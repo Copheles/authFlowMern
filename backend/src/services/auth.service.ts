@@ -53,6 +53,7 @@ export const createAccount = async (data: CreateAccountParams) => {
   });
 
   const userId = user._id;
+  
   // create verification
   const verificationCode = await VerificationCodeModel.create({
     userId: userId,
@@ -198,6 +199,7 @@ export const verifyEmail = async (code: string) => {
     type: VerificationCodeTypes.EmailVerification,
     expiresAt: { $gt: new Date() },
   });
+  
   appAssert(validCode, NOT_FOUND, "Invalid or expired verification code");
 
   const updatedUser = await UserModel.findByIdAndUpdate(
